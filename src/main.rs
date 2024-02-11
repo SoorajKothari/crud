@@ -1,30 +1,32 @@
 use axum::Router;
-use axum::routing::{delete, get, patch, post, put};
-use crate::controller::{create_user, delete_user, get_user_by_id, list_users, update_user};
+use axum::routing::{delete, get, post, put};
+use crate::controller::{
+    create_user,
+    delete_user,
+    get_user_by_id,
+    list_users,
+    update_user
+};
 
 mod model;
 mod controller;
+mod user_service;
 
 #[tokio::main]
 async fn main() {
-    /*
-    RUST
-    Postgres SQL
-    Docker & Kubernetes
-    */
 
-    let app = Router::new()
-        .route("/users", get(list_users))
-        .route("/user/:id",get(get_user_by_id))
-        .route("/user", post(create_user))
-        .route("/user/:id", put(update_user))
-        .route("/user/:id", delete(delete_user));
+    let app = Router::new().
+        route("/users", get(list_users)).
+        route("/user/:id", get(get_user_by_id)).
+        route("/user", post(create_user)).
+        route("/user/:id", put(update_user)).
+        route("/user/:id", delete(delete_user));
 
     let listener =
-        tokio::net::TcpListener::bind("0.0.0.0:3000").await
-            .unwrap();
+        tokio::net::TcpListener::bind("0.0.0.0:3000").
+            await.unwrap();
 
-    axum::serve(listener,app)
-        .await
-        .unwrap();
+    axum::serve(listener, app).
+        await.
+        unwrap();
 }
