@@ -2,6 +2,7 @@ use sqlx::{Error, PgPool};
 use sqlx::postgres::PgPoolOptions;
 use crate::model::{User, UserInfo};
 
+#[derive(Clone)]
 pub struct UserService {
     pool: PgPool
 }
