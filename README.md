@@ -1,22 +1,32 @@
 # Introduction
- CRUD App 
+CRUD App
 
 # Stack
 - RUST
 - Postgres SQL DB
-- Docker & Kubernates
+- Docker & Kubernetes
 
 # How to run
 
 ### To run on local (Only if you have postgres running on local)
 
-Do `cargo run`
+```bash
+cargo run
+```
+### How to run using docker compose (This will set up everything including DB)
+```bash
+docker build . -t crud:latest && cd docker && docker compose up
+```
 
-### How to run using docker compose (This will setup everything including DB)
+# Kubernetes Deployment
 
-Do `docker build . -t crud:latest`
-Do `cd docker`
-Do `docker compose up`
+### Deploy DB and App
+```bash
+cd deployment/db && 
+kubectl apply -f db-namespace.yaml -f db-deployment.yaml -f db-service.yaml 
+&& cd ../app && 
+kubectl apply -f app-namespace.yaml -f app-deployment.yaml -f app-service.yaml
+```
 
 # Author
 Sooraj Kumar
